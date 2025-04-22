@@ -14,7 +14,7 @@
     const id = params.get('id');
     const reservationsId = params.get('reservationId');
 
-    fetch(`https://my-api-booking-46513008176e.herokuapp.com/${id}/reservations/`)
+    fetch(`http://localhost:3000/${id}/reservations/`)
     .then(response => response.json())
     .then(data => {
         let reservations = data.reservations || data || [];
