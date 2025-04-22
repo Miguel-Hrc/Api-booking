@@ -1,0 +1,41 @@
+<html>
+
+<head>
+  <title>List of reservation</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <form id="form_display_reservations">
+        <label>Id catway :</label>
+        <input name="_idCatway" type="text" id="_idCatway" placeholder="677ffc9d6ae2970eb24fe0d2d">
+        <button type="submit">Submit</button>
+    </form>
+    <a href="dashboard.html"><p>back</p></a>
+    <ul id="myList"></ul>
+</body>
+<script>
+    const form_display_reservations= document.getElementById('form_display_reservations');
+
+    form_display_reservations.addEventListener('submit', function(e){
+        const ul = document.getElementById('myList');
+        e.preventDefault();
+        const id = document.getElementById('_idCatway').value;
+        ul.innerHTML = ''
+        fetch(`https://my-api-booking-46513008176e.herokuapp.com/catways/${id}/reservations`)
+        .then(function(response){
+            return response.json()
+        })
+        .then((data) => {
+            data.forEach((reservations) => {
+                const markup = ` <a href='/detailReservation.html?id=${id}&reservationId=${reservations._id}'> <li>ID reservation : ${reservations._id}, Catway number : ${reservations.catwayNumber}, by : ${reservations.clientName}</li></a>`;
+                document.querySelector('ul').insertAdjacentHTML('beforeend', markup);
+            })
+        })
+        .catch((err) => {
+            console.log(`Error fetching: ${err}`)
+        });
+    })
+ 
+</script>
+</html>

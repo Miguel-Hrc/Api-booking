@@ -1,0 +1,27 @@
+<html>
+
+<head>
+  <title>List of catway</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <ul id="myList"></ul>
+    <a href="dashboard.html"><p>back</p></a>
+</body>
+<script>
+    fetch(`https://my-api-booking-46513008176e.herokuapp.com/catways/`)
+    .then(function(response){
+        return response.json()
+    })
+    .then((data) => {
+        data.forEach((catways) => {
+            const markup =`<a href = '/detailCatway.html?id=${catways._id}'><li>ID : ${catways._id}, catway number : ${catways.catwayNumber}</li></a>`;
+            document.querySelector('ul').insertAdjacentHTML('beforeend', markup);
+        })
+    })
+    .catch((err) => {
+        console.log(`Error fetching: ${err}`)
+    })
+</script>
+</html>

@@ -1,0 +1,44 @@
+<html>
+
+<head>
+  <title>Detail of reservations</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <ul id="myList"></ul>
+    <a href="listReservation.html"><p>back</p></a>
+</body>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const reservationsId = params.get('reservationId');
+
+    fetch(`https://my-api-booking-46513008176e.herokuapp.com/${id}/reservations/`)
+    .then(response => response.json())
+    .then(data => {
+        let reservations = data.reservations || data || [];
+        showDetail(reservations, reservationsId);
+    })  
+    .catch(err => {
+        console.error(` Error fetching: ${err}`);
+    });
+
+    function showDetail(catways, reservationsId) {
+        const ul = document.getElementById('myList');
+        ul.innerHTML = '';
+        let thisProduct = catways.find(value => String(value._id) === reservationsId);
+        let li = document.createElement('li');
+        li.innerHTML = `
+            <p><strong>ID:</strong> ${thisProduct._id}</p>
+            <p><strong>Catway Number:</strong> ${thisProduct.catwayNumber}</p>
+            <p><strong>Client Name:</strong> ${thisProduct.clientName}</p>
+            <p><strong>Boat Name:</strong> ${thisProduct.boatName}</p>
+            <p><strong>Check-In:</strong> ${thisProduct.checkIn}</p>
+            <p><strong>Check-Out:</strong> ${thisProduct.checkOut}</p>
+        `;
+        ul.appendChild(li);
+    }
+
+</script>
+</html>
