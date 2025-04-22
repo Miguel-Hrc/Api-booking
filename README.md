@@ -45,7 +45,7 @@ API_URL=<your_url>
 MONGO_URI=mongodb+srv://<db_name>:<db_password>@<clusterName>.odmtx.mongodb.net/dbUser
 SECRET_KEY=<your_secret_key>
 
-Remplacer tout les dossier et fichier avec ce de ce répertoire et tester l'api sur le navigateur en local.
+Remplacer tout les dossiers et fichiers avec ceux de ce répertoire et tester l'api sur le navigateur en local.
 
 cd api
 npm run start (to open api on localhost:3000)
