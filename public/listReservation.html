@@ -22,7 +22,7 @@
         e.preventDefault();
         const id = document.getElementById('_idCatway').value;
         ul.innerHTML = ''
-        fetch(`https://my-api-booking-46513008176e.herokuapp.com/catways/${id}/reservations`)
+        fetch(`http://localhost:3000/catways/${id}/reservations`)
         .then(function(response){
             return response.json()
         })
