@@ -29,7 +29,7 @@
       e.preventDefault();
       const name = document.getElementById('name').value;
       const password = document.getElementById('password').value;
-      const res = fetch('https://my-api-booking-46513008176e.herokuapp.com/auth/login', {
+      const res = fetch('http://localhost:3000/auth/login', {
         method: "POST",
         body:  JSON.stringify({name ,password}),
         headers: { 'Content-Type': 'application/json' },
