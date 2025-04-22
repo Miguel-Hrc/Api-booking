@@ -36,7 +36,7 @@ npm install swagger-ui-expressnp run satrt
 
 creer un base de donnée sur mongodb 
 
-creer des fichiers env nommés : ".env", ".env.dev", ".env.prod", ".env.test"
+creer un dossier .env avec à l'interieur des fichiers env nommés : ".env", ".env.dev", ".env.prod", ".env.test"
 
 dans ces fichiers env ajouter :
 NODE_ENV=template
