@@ -145,7 +145,7 @@
     const password = document.getElementById('password').value;
     const email = document.getElementById('email').value;
     const firstname = document.getElementById('firstname').value;
-    const res = fetch('https://my-api-booking-46513008176e.herokuapp.com/auth/register', {
+    const res = fetch('http://localhost:3000/auth/register', {
       method: "POST",
       body:  JSON.stringify({name ,password, email, firstname}),
       headers: { 'Content-Type': 'application/json' },
@@ -163,7 +163,7 @@
     const password = document.getElementById('update_password').value;
     const email = document.getElementById('update_email').value;
     const firstname = document.getElementById('update_firstname').value;
-    const res = fetch(`https://my-api-booking-46513008176e.herokuapp.com/users/${id}`, {
+    const res = fetch(`http://localhost:3000/users/${id}`, {
       method: "PATCH",
       body:  JSON.stringify({name ,password, email, firstname}),
       headers: { 'Content-Type': 'application/json' },
@@ -177,7 +177,7 @@
   form_delete_user.addEventListener('submit', function(e){
     e.preventDefault();
     const id = document.getElementById('_id-toDelete').value;
-    const res = fetch(`https://my-api-booking-46513008176e.herokuapp.com/users/${id}`, {
+    const res = fetch(`http://localhost:3000/users/${id}`, {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' },
     })
@@ -191,7 +191,7 @@
     const catwayNumber = document.getElementById('catwayNumber').value;
     const type = document.getElementById('type').value;
     const catwayState = document.getElementById('catwayState').value;
-    const res = fetch('https://my-api-booking-46513008176e.herokuapp.com/catways/', {
+    const res = fetch('http://localhost:3000/catways/', {
       method: "POST",
       body:  JSON.stringify({catwayNumber ,type, catwayState}),
       headers: { 'Content-Type': 'application/json' },
@@ -206,7 +206,7 @@
     e.preventDefault();
     const id = document.getElementById('_idCatway-toUpdate').value;
     const catwayState = document.getElementById('update_catwayState').value;
-    const res = fetch(`https://my-api-booking-46513008176e.herokuapp.com/catways/${id}`, {
+    const res = fetch(`http://localhost:3000/catways/${id}`, {
       method: "PATCH",
       body:  JSON.stringify({catwayNumber, catwayState}),
       headers: { 'Content-Type': 'application/json' },
@@ -220,7 +220,7 @@
   form_delete_catway.addEventListener('submit', function(e){
     e.preventDefault();
     const id = document.getElementById('_idCatway-toDelete').value;
-    const res = fetch(`https://my-api-booking-46513008176e.herokuapp.com/catways/${id}`, {
+    const res = fetch(`http://localhost:3000/catways/${id}`, {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' },
     })
@@ -234,7 +234,7 @@
     const id = document.getElementById('_idCatway-toDisplay').value;
     const ul = document.getElementById('display_catway');
     const list = document.createDocumentFragment();
-    const url = `https://my-api-booking-46513008176e.herokuapp.com/catways/${id}`;
+    const url = `http://localhost:3000/catways/${id}`;
     fetch(url)
       .then((response) => {
         return response.json();
@@ -268,7 +268,7 @@
     const boatName = document.getElementById('boatName').value;
     const checkIn = document.getElementById('checkIn').value;
     const checkOut = document.getElementById('checkOut').value;
-    fetch(`https://my-api-booking-46513008176e.herokuapp.com/catways/${id}/reservations`, {
+    fetch(`http://localhost:3000/catways/${id}/reservations`, {
       method: "POST",
       body:  JSON.stringify({catwayNumber, clientName , boatName , checkIn , checkOut }),
       headers: { 'Content-Type': 'application/json' },
@@ -283,7 +283,7 @@
     e.preventDefault();
     const id = document.getElementById('_idCatway-toDeleteReservation').value;
     const idReservation = document.getElementById('_idReservation-toDeleteReservation').value;
-    const res = fetch(`https://my-api-booking-46513008176e.herokuapp.com/catways/${id}/reservations/${idReservation}`, {
+    const res = fetch(`http://localhost:3000/catways/${id}/reservations/${idReservation}`, {
       method: "DELETE",
       headers: { 'Content-Type': 'application/json' },
     })
@@ -298,7 +298,7 @@
     const idReservation = document.getElementById('_idReservation-toDisplayReservation').value;
     const ul = document.getElementById('display_reservation');
     const list = document.createDocumentFragment();
-    const url = `https://my-api-booking-46513008176e.herokuapp.com/catways/${id}/reservations/${idReservation}`;
+    const url = `http://localhost:3000/catways/${id}/reservations/${idReservation}`;
     fetch(url)
       .then((response) => {
         return response.json();
