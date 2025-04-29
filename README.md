@@ -32,7 +32,8 @@ npm install autocannon -g
 npm install --save-dev chai chai-http mocha
 npm install @types/chai
 npm install swagger-jsdoc
-npm install swagger-ui-expressnp run satrt
+npm install swagger-ui-express
+npm install sinon
 
 creer un base de donnée sur mongodb 
 
