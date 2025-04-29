@@ -1,0 +1,52 @@
+<html>
+
+<head>
+  <title>List of catway</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <form id="form_display_all_catways">
+        <button type="submit">Display all catways</button>
+    </form>     
+    <ul id="catwayList"></ul>
+    <a href="dashboard.html"><p>back</p></a>
+</body>
+<script>
+    const form_display_all_catways = document.getElementById('form_display_all_catways');
+  
+    form_display_all_catways.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const ul = document.getElementById('catwayList');
+      ul.innerHTML = '';
+  
+      fetch('http://localhost:3000/catways')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Error server");
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (!data.success || !Array.isArray(data.data)) {
+            ul.innerHTML = `<li>No catway</li>`;
+            return;
+          }
+  
+          data.data.forEach(catway => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <a href="/detailCatway.html?id=${catway._id}">
+                    Catway #${catway.catwayNumber} | Type: ${catway.type} | État: ${catway.catwayState}
+                </a>
+            `;
+            ul.appendChild(li);
+          });
+        })
+        .catch(error => {
+          console.error("Error :", error);
+          ul.innerHTML = `<li> ${error.message}</li>`;
+        });
+    });
+  </script>
+</html>

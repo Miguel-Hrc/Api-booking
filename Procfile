@@ -1,0 +1,1 @@
+web:env-cmd -f .env/.env nodemon ./bin/www

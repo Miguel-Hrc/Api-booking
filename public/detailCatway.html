@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Catway</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <h1>Detail Catway</h1>
+
+    <div id="catwayDetails">
+        <p>Loading...</p>
+    </div>
+
+    <a href="listCatway.html"><p>back</p></a>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const catwayId = urlParams.get('id');
+
+        const catwayDetailsDiv = document.getElementById('catwayDetails');
+
+        fetch(`http://localhost:3000/catways/${catwayId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Can't fetch data");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    const catway = data.data;
+                    catwayDetailsDiv.innerHTML = `
+                        <h2>Catway #${catway.catwayNumber}</h2>
+                        <p><strong>Type :</strong> ${catway.type}</p>
+                        <p><strong>State:</strong> ${catway.catwayState}</p>
+                    `;
+                } else {
+                    catwayDetailsDiv.innerHTML = `<p>Catway not found.</p>`;
+                }
+            })
+            .catch(error => {
+                console.error("Error :", error);
+                catwayDetailsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+    </script>
+
+</body>
+
+</html>

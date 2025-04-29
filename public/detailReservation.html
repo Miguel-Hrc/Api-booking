@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Reservation</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <h1>Detail Reservation</h1>
+    <div id="reservationsDetails">
+        <p>Loading...</p>
+    </div>
+    <a href="listReservation.html"><p>back</p></a>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const catwayId = urlParams.get('id');
+        const reservationId = urlParams.get('reservationId');
+        const reservationsDetailsDiv = document.getElementById('reservationsDetails');
+
+        fetch(`http://localhost:3000/catways/${catwayId}/reservations/${reservationId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Can't fetch data");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    const reservation = data.data;  
+                    reservationsDetailsDiv.innerHTML = `
+                        <h2><strong>ID :</strong> ${reservation._id}</h2>
+                        <p><strong>Catway Number :</strong> ${reservation.catwayNumber}</p>
+                        <p><strong>Client Name :</strong> ${reservation.clientName}</p>
+                        <p><strong>Boat Name :</strong> ${reservation.boatName}</p>
+                        <p><strong>Check-In :</strong> ${new Date(reservation.checkIn).toLocaleDateString()}</p>
+                        <p><strong>Check-Out :</strong> ${new Date(reservation.checkOut).toLocaleDateString()}</p>
+                    `;
+                } else {
+                    reservationsDetailsDiv.innerHTML = `<p>Reservation not found.</p>`;
+                }
+            })
+            .catch(error => {
+                console.error("Error :", error);
+                reservationsDetailsDiv.innerHTML = `<p>Error : ${error.message}</p>`;
+            });
+    </script>
+
+</body>
+
+</html>

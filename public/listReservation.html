@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List of Reservations</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <form id="form_display_reservations">
+    <label>Id catway :</label>
+    <input name="_idCatway" type="text" id="_idCatway" placeholder="677ffc9d6ae2970eb24fe0d2d">
+    <button type="submit">Submit</button>
+  </form>
+  <a href="dashboard.html"><p>back</p></a>
+  <ul id="myList"></ul>
+<script>
+    const form_display_reservations = document.getElementById('form_display_reservations');
+    form_display_reservations.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const ul = document.getElementById('myList');
+      ul.innerHTML = '';
+      const id = document.getElementById('_idCatway').value;
+      fetch(`http://localhost:3000/catways/${id}/reservations`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Error server or catway not found");
+          }
+          return response.json();
+        })
+        .then(data => {
+          const reservations = data && data.data ? data.data : [];
+          if (reservations.length === 0) {
+            ul.innerHTML = `<li>No reservation for this catway</li>`;
+            return;
+          }
+          reservations.forEach(reservation => {
+            if (reservation && reservation._id && reservation.catwayNumber && reservation.clientName) {
+              const li = document.createElement('li');
+              li.innerHTML = `
+                <a href='/detailReservation.html?id=${id}&reservationId=${reservation._id}'>
+                  ID : ${reservation._id}<br>
+                  Catway : ${reservation.catwayNumber}<br>
+                  Client : ${reservation.clientName}
+                </a>
+              `;
+              ul.appendChild(li);
+            }
+          });
+        })
+        .catch(err => {
+          console.error("Error :", err);
+          ul.innerHTML = `<li> ${err.message}</li>`;
+        });
+    });
+</script>
+</body>
+</html>
