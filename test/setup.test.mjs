@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 
-import fs      from 'fs/promises';
+import { readFile } from 'fs/promises';
 import path    from 'path';
 import  User from '../models/user.mjs';
 import  Catway from '../models/catway.mjs';
@@ -28,20 +28,20 @@ beforeEach((done) => {
   })
   done();
 });
-
 afterEach(async () => {
   const catwaysCount = await Catway.countDocuments();
   if (catwaysCount === 0) {
-    const catwaysJSON = await fs.readFile(
+    const catwaysJSON = await readFile(
       path.join(process.cwd(), 'data', '../catways.json'),
       'utf8'
     );
     const catways = JSON.parse(catwaysJSON);
     await Catway.insertMany(catways);
   }
+
   const reservationsCount = await Reservation.countDocuments();
   if (reservationsCount === 0) {
-    const reservationsJSON = await fs.readFile(
+    const reservationsJSON = await readFile(
       path.join(process.cwd(), 'data', '../reservations.json'),
       'utf8'
     );
